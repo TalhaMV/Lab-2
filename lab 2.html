@@ -1,54 +1,125 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>Display a map on a webpage</title>
-<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
-<style>
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-</style>
+  <meta charset="utf-8">
+  <title>Display a map on a webpage</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
 </head>
+
 <body>
-<div id="map"></div>
-<script>
-	mapboxgl.accessToken = 'pk.eyJ1IjoidGFsaGF2IiwiYSI6ImNsZG0wdno1MDA0dHMzb2tiNDc5YnFzcm0ifQ.QrkOG_mZti52bYP2Usy-MA';
-const map = new mapboxgl.Map({
-container: 'map', // container ID
-// Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-style: 'mapbox://styles/talhav/cle0a9fvt004d01qwzhe941ll', // style URL
-center: [-79.383942309698,
-          43.65324854730207], // starting position [lng, lat]
-zoom: 9 // starting zoom
-});
-
-map.on('load', () => {map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png'),
-(error, image) => {
-    if (error) throw error;
-    map.addImage('custom-marker', image);
-    map.addSource('hall',
-    {'type':'geojson',
-    'data':{
-      "type": "FeatureCollection",
-      "features": [
-      {
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-        "coordinates": [-79.383942309698, 43.65324854730207],
-        "type": "Point"
-      }}]}})}});
+  <div id="map"></div>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoidGFsaGF2IiwiYSI6ImNsZG0wdno1MDA0dHMzb2tiNDc5YnFzcm0ifQ.QrkOG_mZti52bYP2Usy-MA';
+    const map = new mapboxgl.Map({
+      container: 'map', // container ID
+      // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+      style: 'mapbox://styles/talhav/cle0a9fvt004d01qwzhe941ll', // style URL
+      center: [-79.383942309698,
+        43.65324854730207], // starting position [lng, lat]
+      zoom: 9 // starting zoom
+    });
 
 
-// Add a symbol layer
-map.addLayer({
-'id': 'hall',
-'type': 'symbol',
-'source': 'hall',
-'layout': {
-'icon-image': 'custom-marker'}})
-</script>
+    map.on('load', () => {
+      map.addSource('city-hall'), {
+        type: 'geojson',
+        data: {
+          "type": "FeatureCollection",
+          "features": [
+            {
+              "type": "Feature",
+              "properties": {},
+              "geometry": {
+                "coordinates": [
+                  -79.383942309698,
+                  43.65324854730207
+                ],
+                "type": "Point"
+              }
+            }
+          ]
+        }
+      }
+      map.addLayer({ 
+        'id': "cityhallpoint",
+        'type': 'circle',
+        'source': 'city-hall',
+        'paint': {
+          'circle-radius': 3,
+          'circle-color': 'red'
+        }
+      })
+    });
+    map.addSource('route', {'type': 'vector',
+            'url': 'mapbox://ananmay.b449yns1'
+            });
+            map.addLayer(
+                {
+                'id': '1',
+                'name':'Gardiner Expressway',
+                'type': 'line',
+                'source':'route',
+                'source-layer': 'gardinerroute84-9zktwf',
+                'layout': {'line-join': 'round','line-cap': 'round' },
+                'paint': {'line-color': '#ff69b4','line-width': 10}
+                },
+            );
+
+    // // adding the point and loading the symbol image
+    // map.on('load', () => {map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png'),
+    // (error, image) => {
+    //     if (error) throw error;
+    //     map.addImage('custom-marker', image);
+    //     map.addSource('hall',
+    //     {'type':'geojson',
+    //     'data':{
+    //       "type": "FeatureCollection",
+    //       "features": [
+    //       {
+    //         "type": "Feature",
+    //         "properties": {},
+    //         "geometry": {
+    //         "coordinates": [-79.383942309698, 43.65324854730207],
+    //         "type": "Point"
+    //       }}]}})}});
+
+
+    // // Add a symbol layer
+    // map.addLayer({
+    // 'id': 'hall',
+    // 'type': 'symbol',
+    // 'source': 'hall',
+    // 'layout': {
+    // 'icon-image': 'custom-marker'}})
+
+    // map.addSource('tilesetdata', {
+    //   'url': 'mapbox://talhav.bpvjwapp',
+    //   'type': 'vector'
+    // });
+
+    // map.addLayer({
+    //   'id': 'ww',
+    //   'type': 'fill',
+    //   'source': 'tilesetdata',
+    //   'source-layer': 'woodsworth-c0rp9m'
+    // })
+  </script>
 </body>
+
 </html>
