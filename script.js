@@ -8,7 +8,7 @@ const map = new mapboxgl.Map({
 
     center: [-79.39830123888215, 43.664695891060376], 
 
-    zoom: 15,
+    zoom: 12,
 
 });
 map.on('load', () => {
@@ -39,7 +39,7 @@ map.on('load', () => {
 
         'paint': {
 
-            'circle-radius': 5,
+            'circle-radius': 10,
 
             'circle-color': 'red'
 
@@ -68,7 +68,7 @@ map.on('load', () => {
 
         'paint': {
 
-            'fill-color': '#7FFF00',
+            'fill-color': '#000000',
 
             'fill-opacity': 0.5,
 
