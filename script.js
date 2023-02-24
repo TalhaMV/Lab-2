@@ -6,9 +6,9 @@ const map = new mapboxgl.Map({
 
     style: 'mapbox://styles/talhav/cle0a9fvt004d01qwzhe941ll',
 
-    center: [-79.39, 43.65],
+    center: [-79.39830123888215, 43.664695891060376], 
 
-    zoom: 3,
+    zoom: 15,
 
 });
 map.on('load', () => {
@@ -17,11 +17,11 @@ map.on('load', () => {
 
     //Add datasource from GeoJSON
 
-    map.addSource('toronto-mus', {
+    map.addSource('home', {
 
         type: 'geojson',
 
-        data: 'https://raw.githubusercontent.com/smith-lg/ggr472-wk6-demo/main/data/torontomusicvenues.geojson'
+        data: 'https://raw.githubusercontent.com/TalhaMV/Lab-2/main/myhome.geojson'
 
         //'https://smith-lg.github.io/ggr472-wk6-demo/data/torontomusicvenues.geojson'
 
@@ -31,27 +31,27 @@ map.on('load', () => {
 
     map.addLayer({
 
-        'id': 'toronto-mus-pnts',
+        'id': 'residence',
 
         'type': 'circle',
 
-        'source': 'toronto-mus',
+        'source': 'home',
 
         'paint': {
 
             'circle-radius': 5,
 
-            'circle-color': 'blue'
+            'circle-color': 'red'
 
         }
 
     });
 
-    map.addSource('canada-provterr', {
+    map.addSource('college', {
 
         'type': 'vector',
 
-        'url': 'mapbox://lgsmith.843obi8n'
+        'url': 'mapbox://talhav.0d4na3al'
 
     });
 
@@ -64,19 +64,19 @@ map.on('load', () => {
 
         'type': 'fill',
 
-        'source': 'canada-provterr',
+        'source': 'college',
 
         'paint': {
 
-            'fill-color': '#627BC1',
+            'fill-color': '#7FFF00',
 
             'fill-opacity': 0.5,
 
-            'fill-outline-color': 'white'
+            'fill-outline-color': 'purple'
 
         },
 
-        'source-layer': 'can-provterr2021-9crjaq'
+        'source-layer': 'uoftcolleges-5imo5h'
 
     });
 
